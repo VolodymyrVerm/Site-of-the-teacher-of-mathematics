@@ -22,6 +22,16 @@
                         <input type="submit" value="Вихід" />
                     </form>
                 </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="aa" asp-controller="Roles" asp-action="UserList">Користувачі</a>
+
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("Student"))
+                {
+                    <a class="aa" asp-area="" asp-controller="TaskViewModels" asp-action="Index">Тести</a>
+
+                }
             }
             else
             {
@@ -29,10 +39,9 @@
                 <a class="aa" asp-controller="Account" asp-action="Register">Реєстрація</a>
             }
 
-            <a class="aa" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
-            <a class="aa" asp-area="" asp-controller="Home" asp-action="About">About</a>
-            <a class="aa" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-            <a class="aa" asp-area="" asp-controller="TaskViewModels" asp-action="Index">Тести</a>
+            <a class="aa" asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
+            <a class="aa" asp-area="" asp-controller="Home" asp-action="About">Інше</a>
+            <a class="aa" asp-area="" asp-controller="Home" asp-action="Index">Домашня</a>
 
 
         </nav>

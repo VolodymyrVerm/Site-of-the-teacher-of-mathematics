@@ -1,0 +1,54 @@
+﻿body {
+    margin: 0;
+    background: white;
+    background-size: cover;
+    font-family: Arial
+}
+
+.top{
+    position:fixed;
+    top:0px;
+    right:0px;
+    color:white;
+}
+
+
+.centerLogin {
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    top: 250px;
+    left: 50%;
+    margin-left:-50px;
+}
+
+header {
+    font-style: normal;
+    font-family: Arial;
+    text-align: center;
+    height: 100px;
+    padding: 25px;
+    background-color: #4b3832;
+}
+
+    header h1 {
+        color: #fff5e6;
+        font-weight: normal;
+    }
+
+    header nav {
+        width: 100%;
+        clear: both;
+        float: right;
+    }
+
+.aa {
+    display: inline-block;
+    margin: 20px;
+    float: right;
+    color: white;
+    text-decoration: none;
+    list-style: none;
+    font-size: 19px;
+    transition: 1s
+}

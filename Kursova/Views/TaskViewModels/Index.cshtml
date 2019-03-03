@@ -25,28 +25,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Question)
+                @item.Question
             </td>
             <td>
 
                 @using (Html.BeginForm("Validate_Answer", "TaskViewModels", FormMethod.Post))
                 {
-                    <input type="hidden" value="@ViewBag.Id" name="BookId" />
-                    <p>Введите свое имя: </p>
-                    @Html.TextBox("Person", "Введите имя")
-                    <p>Введите адрес :</p>
-                    @Html.TextBox("Address", "Введите адрес")
-                    <p><input type="submit" value="Отправить" /></p>
+
+                    @Html.TextBox("answer")
+                    <input type="hidden" value="@item.Id"  name="id"/>
+                    <p><input type="submit" value="Відправити" /></p>
                 }
 
-                <form asp-action="Create">
-                    <input name="answer" value="a1" id="answer" class="form-control" />
 
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-
-                </form>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

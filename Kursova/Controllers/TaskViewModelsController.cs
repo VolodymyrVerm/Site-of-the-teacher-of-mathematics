@@ -65,13 +65,17 @@ namespace Kursova.Controllers
             return View(taskViewModel);
         }
 
-        //[HttpPost]
-        //public async IActionResult Validate_Answer (string answer)
-        //{
-        //    if(answer==true)
-        //    { }
-        //    return View(taskViewModel);
-        //}
+        [HttpPost]
+        public IActionResult Validate_Answer(string answer,string id)
+        {
+            int ID = Int32.Parse(id);
+            
+            if (answer== _context.Tasks.Find(ID).Answer)
+            {
+                return View();
+            }
+            return View(_context.Tasks.ToListAsync());
+        }
 
         // GET: TaskViewModels/Edit/5
         public async Task<IActionResult> Edit(int? id)

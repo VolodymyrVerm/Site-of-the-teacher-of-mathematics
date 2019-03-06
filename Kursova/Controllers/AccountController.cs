@@ -26,7 +26,7 @@ namespace CustomIdentityApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, NumberOfClass = model.NumberOfClass };
+                User user = new User { Email = model.Email, UserName = model.Email};
                 
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);

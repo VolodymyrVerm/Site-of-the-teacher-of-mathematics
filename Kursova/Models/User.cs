@@ -8,6 +8,5 @@ namespace Kursova.Models
 {
     public class User:IdentityUser
     {
-        public int NumberOfClass { get; set; }
     }
 }

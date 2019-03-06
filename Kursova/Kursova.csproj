@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190303114042_AddRoles.cs" />
     <Compile Remove="Migrations\20190303114042_AddRoles.Designer.cs" />
+    <Compile Remove="Migrations\20190306094838_sec.cs" />
+    <Compile Remove="Migrations\20190306094838_sec.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

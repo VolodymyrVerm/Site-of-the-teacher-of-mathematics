@@ -62,6 +62,7 @@ namespace Kursova.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(taskViewModel);
         }
 
@@ -74,7 +75,7 @@ namespace Kursova.Controllers
             {
                 return View();
             }
-            return View(_context.Tasks.ToListAsync());
+            return View();
         }
 
         // GET: TaskViewModels/Edit/5

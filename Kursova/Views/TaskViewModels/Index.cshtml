@@ -48,3 +48,17 @@
 }
     </tbody>
 </table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var 
+        $("#answer").val();
+        $.ajax({
+            url: "/api/testapi/validate"
+            data: { "id": 1, }
+            contentType: "json",
+            success: function (data) {
+
+            }
+        })
+    })
+</script>

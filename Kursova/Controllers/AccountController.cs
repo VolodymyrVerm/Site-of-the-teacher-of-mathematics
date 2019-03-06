@@ -27,12 +27,15 @@ namespace CustomIdentityApp.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email, NumberOfClass = model.NumberOfClass };
+                
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     // установка куки
+                    await _userManager.AddToRoleAsync(user, "Student");
                     await _signInManager.SignInAsync(user, false);
+                   
                     return RedirectToAction("Index", "Home");
                 }
                 else

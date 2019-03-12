@@ -5,47 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebApp</title>
     <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/bootstrap/bootstrap.css" />
 
 
 </head>
 <body>
-    <header>
-        <h1>Сайт вчителя математики</h1>
-        <nav>
+        <header>
+            <h1>Сайт вчителя математики</h1>
+            <nav>
 
-            @if (User.Identity.IsAuthenticated)
-            {
-
-                <div class="top">
-                    <form method="post" asp-controller="Account" asp-action="LogOff">
-                        <a>@User.Identity.Name</a>
-                        <input type="submit" value="Вихід" />
-                    </form>
-                </div>
-                @if (User.IsInRole("Admin"))
+                @if (User.Identity.IsAuthenticated)
                 {
-                    <a class="aa" asp-controller="Roles" asp-action="UserList">Користувачі</a>
 
+                    <div class="top">
+                        <form method="post" asp-controller="Account" asp-action="LogOff">
+                            <a>@User.Identity.Name</a>
+                            <input type="submit" value="Вихід" />
+                        </form>
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="float-right" asp-controller="Roles" asp-action="UserList">Користувачі</a>
+
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("Student"))
+                    {
+                        <a class="float-right" asp-area="" asp-controller="TaskViewModels" asp-action="Index">Тести</a>
+
+                    }
                 }
-                @if (User.IsInRole("Admin") || User.IsInRole("Student"))
+                else
                 {
-                    <a class="aa" asp-area="" asp-controller="TaskViewModels" asp-action="Index">Тести</a>
-
+                    <a class="float-right" asp-controller="Account" asp-action="Login">Вхід</a>
+                    <a class="float-right" asp-controller="Account" asp-action="Register">Реєстрація</a>
                 }
-            }
-            else
-            {
-                <a class="aa" asp-controller="Account" asp-action="Login">Вхід</a>
-                <a class="aa" asp-controller="Account" asp-action="Register">Реєстрація</a>
-            }
 
-            <a class="aa" asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
-            <a class="aa" asp-area="" asp-controller="Home" asp-action="About">Інше</a>
-            <a class="aa" asp-area="" asp-controller="Home" asp-action="Index">Домашня</a>
-
-        </nav>
-    </header>
-
+                    <div class=" nav-pills ">
+                        <a  class="float-right " style="text-decoration-color:white" asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
+                        <a class="float-right" asp-area="" asp-controller="Home" asp-action="About">Інше</a>
+                        <a class="float-right" asp-area="" asp-controller="Home" asp-action="Index">Домашня</a>
+                    </div>
+                
+            </nav>
+            </header>
 
 
     <partial name="_CookieConsentPartial" />

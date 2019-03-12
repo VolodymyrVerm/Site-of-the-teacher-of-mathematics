@@ -28,15 +28,15 @@
                 @item.Question
             </td>
             <td>
-
-                @using (Html.BeginForm("Validate_Answer", "TaskViewModels", FormMethod.Post))
-                {
+                <div>
+                
 
                     @Html.TextBox("answer")
                     <input type="hidden" value="@item.Id"  name="id"/>
-                    <p><input type="submit" value="Відправити" /></p>
-                }
+                    <p><input id="send" type="submit" value="Відправити" /></p>
 
+                
+                </div>
 
             </td>
             <td>
@@ -49,14 +49,17 @@
     </tbody>
 </table>
 <script type="text/javascript">
+    
     $(document).ready(function () {
-        var 
-        $("#answer").val();
+       
+        var ans = $("#answer").val();
+        var ID = $("id").val();
+
         $.ajax({
-            url: "/api/testapi/validate"
-            data: { "id": 1, }
+            url: "/api/testapi/validate",
+            data: { "id": 1, },
             contentType: "json",
-            success: function (data) {
+            success: function (ans,ID) {
 
             }
         })

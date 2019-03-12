@@ -15,7 +15,7 @@ namespace Kursova.Controllers
         [Route("Validate")]
         public string validate_answer(string answer,string id)
         {
-            return "dvsav";
+            return "vds";
         }
     }
 }

@@ -14,5 +14,7 @@ namespace Kursova.ViewModels
 
 
         public string Answer { get; set; }
+
+
     }
 }

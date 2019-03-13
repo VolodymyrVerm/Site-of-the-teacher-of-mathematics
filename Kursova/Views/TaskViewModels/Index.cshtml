@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Index";
+    var i = 1;
+    var answerId = "";
+    var questionId = "";
 }
 
 <h2>Index</h2>
@@ -28,40 +31,57 @@
                 @item.Question
             </td>
             <td>
-                <div>
-                
 
-                    @Html.TextBox("answer")
-                    <input type="hidden" value="@item.Id"  name="id"/>
-                    <p><input id="send" type="submit" value="Відправити" /></p>
+                    @{ answerId = "answer" + item.Id; questionId = "question" + item.Id;}
+                    <input type="text" id="@answerId"  />
+                    <input type="hidden" value="@item.Id"  name="@answerId"/>
+                    <p><input id="@item.Id" type="button" value="Відправити" class="sbt_btn"/></p>
 
-                
-                </div>
 
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+
+    </td>
+
+    <td>
+
+        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+
+        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+
+        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+    </td>
+
+</tr>
 }
     </tbody>
 </table>
+SCORE: <span id="score"></span>
+<script type="text/javascript" src="~/jQuery/jquery.js"></script>
 <script type="text/javascript">
-    
+    var score = 0;
     $(document).ready(function () {
-       
-        var ans = $("#answer").val();
-        var ID = $("id").val();
+        $(".sbt_btn").click(function ()
+        {
 
-        $.ajax({
-            url: "/api/testapi/validate",
-            data: { "id": 1, },
-            contentType: "json",
-            success: function (ans,ID) {
-
-            }
+            $(this).hide();
+            $("#answer" + $(this).attr("id")).attr("disabled", "");
+            alert($(this).attr("id"));
+            $.ajax({
+                url: "/api/testapi/validate",
+                data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val()},
+                contentType: "json",
+                success: function (data) {
+                    alert(data);
+                    score++;
+                    $("#score").empty();
+                    $("#score").text(score);
+                },
+                error: function () {
+                    alert("Incorrect");
+                }
+            })
         })
+       
     })
 </script>

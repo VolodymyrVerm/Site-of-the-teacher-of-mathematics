@@ -10,6 +10,8 @@
     <Compile Remove="Migrations\20190303114042_AddRoles.Designer.cs" />
     <Compile Remove="Migrations\20190306094838_sec.cs" />
     <Compile Remove="Migrations\20190306094838_sec.Designer.cs" />
+    <Compile Remove="Migrations\20190315003527_AddUserResponse.cs" />
+    <Compile Remove="Migrations\20190315003527_AddUserResponse.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

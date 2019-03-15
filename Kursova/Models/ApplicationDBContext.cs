@@ -15,7 +15,9 @@ namespace Kursova.Models
         {
            // Database.EnsureCreated();
         }
+      
         public DbSet<TaskViewModel> Tasks { get; set; }
+        public DbSet<UserResponseViewModel> Answers { get; set; }
 
     }
 }

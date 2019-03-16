@@ -59,7 +59,7 @@ namespace Kursova.Controllers
             var ress=db.Answers.Where(i => i.UserId == t);
             var res = db.Tasks.Where(i => !ress.Any(k => k.QuestionId == i.Id.ToString()));
             //var res = db.Tasks.Where(i => !db.Answers.Find(t));
-
+          //  return res;
             return JsonConvert.SerializeObject(res);
 
 

@@ -7,11 +7,14 @@
     var questionId = "";
 }
 
-<h2>Index</h2>
+<h2>Тестування</h2>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -24,36 +27,51 @@
             <th></th>
         </tr>
     </thead>
-    <tbody id="qustion">
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @item.Question
-            </td>
-            <td>
-                    
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Question
+                </td>
+                <td>
+
                     @{ answerId = "answer" + item.Id; questionId = "question" + item.Id;}
-                    <input type="text" id="@answerId"  />
-                    <input type="hidden" value="@item.Id"  name="@answerId"/>
-                    <p><input id="@item.Id" type="button" value="Відправити" class="sbt_btn"/></p>
+                    <input type="text" id="@answerId" />
+                    <input type="hidden" value="@item.Id" name="@answerId" />
+                    <p><input id="@item.Id" type="button" value="Відправити" class="sbt_btn" /></p>
 
 
 
 
-    </td>
+                </td>
 
-    <td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
 
-        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
 
-        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
 
-        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 
-    </td>
+                </td>
 
-</tr>
-}
+            </tr>
+            
+
+         }
+        
+        
+         
+    </tbody>
+
+</table>
+<table class="table">
+    <tbody id="w">
+
     </tbody>
 </table>
 SCORE: <span id="score"></span>
@@ -61,15 +79,15 @@ SCORE: <span id="score"></span>
 <script type="text/javascript">
     var score = 0;
     $(document).ready(function () {
-        $(".sbt_btn").click(function ()
-        {
+        $(".sbt_btn").click(function () {
 
             $(this).hide();
             $("#answer" + $(this).attr("id")).attr("disabled", "");
             //alert($(this).attr("id"));
             $.ajax({
                 url: "/api/testapi/setanswer",
-                data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val()},
+                data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val() },
+
                 contentType: "json",
                 success: function (data) {
                     //alert(data);
@@ -82,17 +100,32 @@ SCORE: <span id="score"></span>
                 }
             })
 
-            $.ajax({
-                url: "/api/testapi/GetAnswer",
-                contentType: "json",
-                success: function (data)
-                {
-                    alert(data);
-                    //$("#questions").append("<inpu")
-                   // $("#answer" + $(this).attr("id")).attr("disabled", "");
-                }
-            })
+
         })
-       
+        $.ajax({
+            url: "/api/testapi/GetAnswer",
+            contentType: "json",
+
+            success: function (data) {
+                //alert(data);
+                 //$("#qq").append(data);
+
+                //alert(data);
+                var t = JSON.parse(data);
+                
+                $.each(t,function() {
+                    //alert(this.Question);
+                    $("#w").append("<tr><td>" + this.Question + "</td><>/tr");
+                    
+                    $("#res").append("<input type="+text+"/>");
+                });
+
+                // $("#Question").append("<input>")
+                // $("#answer" + $(this).attr("id")).attr("disabled", "");
+            }
+        })
+        
+    
+    
     })
 </script>

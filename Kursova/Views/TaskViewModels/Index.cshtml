@@ -71,7 +71,7 @@
 </table>
 <table class="table">
     <tbody id="w">
-
+       
     </tbody>
 </table>
 SCORE: <span id="score"></span>
@@ -89,6 +89,31 @@ SCORE: <span id="score"></span>
                 data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val() },
 
                 contentType: "json",
+
+                success: function (data) {
+                    //alert(data);
+                    score++;
+                    $("#score").empty();
+                    $("#score").text(score);
+                },
+                error: function () {
+                    alert("Incorrect");
+                }
+            })
+
+
+        })
+        $(".sbt_btn").click(function () {
+
+            $(this).hide();
+            $("#answer" + $(this).attr("id")).attr("disabled", "");
+            //alert($(this).attr("id"));
+            $.ajax({
+                url: "/api/testapi/setanswer",
+                data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val() },
+
+                contentType: "json",
+
                 success: function (data) {
                     //alert(data);
                     score++;
@@ -112,16 +137,15 @@ SCORE: <span id="score"></span>
 
                 //alert(data);
                 var t = JSON.parse(data);
-                
+                var d;
                 $.each(t,function() {
                     //alert(this.Question);
-                    $("#w").append("<tr><td>" + this.Question + "</td><>/tr");
-                    
-                    $("#res").append("<input type="+text+"/>");
+                    $("#w").append("<tr> <td>" + this.Question + "</td><td><input id=\"answer" + this.Id + "\" ></td><td> <input value=\" Підтвердити \" type=\"button\" > </td> </tr>");
+
                 });
 
-                // $("#Question").append("<input>")
-                // $("#answer" + $(this).attr("id")).attr("disabled", "");
+                
+                
             }
         })
         

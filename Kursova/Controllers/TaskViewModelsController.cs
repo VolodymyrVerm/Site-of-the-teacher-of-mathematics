@@ -20,10 +20,15 @@ namespace Kursova.Controllers
         }
 
         // GET: TaskViewModels
+        public async Task<IActionResult> ViewListQuestion()
+        {
+            return View(await _context.Tasks.ToListAsync());
+        }
         public async Task<IActionResult> Index()
         {
             return View(await _context.Tasks.ToListAsync());
         }
+      
 
         // GET: TaskViewModels/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -60,23 +65,13 @@ namespace Kursova.Controllers
             {
                 _context.Add(taskViewModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ViewListQuestion));
             }
             
             return View(taskViewModel);
         }
 
-        [HttpPost]
-        public IActionResult Validate_Answer(string answer,string id)
-        {
-            int ID = Int32.Parse(id);
-            
-            if (answer== _context.Tasks.Find(ID).Answer)
-            {
-                return View();
-            }
-            return View();
-        }
+       
 
         // GET: TaskViewModels/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -124,7 +119,7 @@ namespace Kursova.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ViewListQuestion));
             }
             return View(taskViewModel);
         }
@@ -155,7 +150,7 @@ namespace Kursova.Controllers
             var taskViewModel = await _context.Tasks.FindAsync(id);
             _context.Tasks.Remove(taskViewModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ViewListQuestion));
         }
 
         private bool TaskViewModelExists(int id)

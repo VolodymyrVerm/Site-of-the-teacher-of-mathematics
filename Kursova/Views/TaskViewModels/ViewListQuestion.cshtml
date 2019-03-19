@@ -1,14 +1,16 @@
 ﻿@model IEnumerable<Kursova.ViewModels.TaskViewModel>
 
 @{
-    ViewData["Title"] = "Validate";
+    ViewData["Title"] = "ViewListQuestion";
 }
 
-<h2>Index</h2>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 
-<p>
-    
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -29,21 +31,29 @@
                     @item.Question
                 </td>
                 <td>
+                    @item.Answer
+                </td>
 
-                    @using (Html.BeginForm("Validate_Answer", "TaskViewModels", FormMethod.Post))
+                <td>
+                    @if (User.IsInRole("Admin"))
                     {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
 
-                       
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     }
 
 
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+
             </tr>
+
+
         }
+
+
+
     </tbody>
+
 </table>

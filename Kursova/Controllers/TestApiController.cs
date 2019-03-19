@@ -39,14 +39,6 @@ namespace Kursova.Controllers
             db.Answers.Add(res);
             db.SaveChanges();
 
-
-
-            //var task = db.Tasks.Find(int.Parse(id));
-            //if (answer == task.Answer)
-            //{
-            //    return JsonConvert.SerializeObject(task);
-            //}
-            //throw new ArgumentException();
          
         }
 
@@ -55,14 +47,14 @@ namespace Kursova.Controllers
         public string GetAnswer()
         {
             var t = us.GetUserId(User);
-       
+            
             var ress=db.Answers.Where(i => i.UserId == t);
             var res = db.Tasks.Where(i => !ress.Any(k => k.QuestionId == i.Id.ToString()));
-            //var res = db.Tasks.Where(i => !db.Answers.Find(t));
-          //  return res;
             return JsonConvert.SerializeObject(res);
 
 
         }
+
+        
     }
 }

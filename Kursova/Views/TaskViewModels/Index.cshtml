@@ -2,77 +2,23 @@
 
 @{
     ViewData["Title"] = "Index";
-    var i = 1;
-    var answerId = "";
-    var questionId = "";
 }
 
 <h2>Тестування</h2>
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Question)
+                Question
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Answer)
+                Answer
             </th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.Question
-                </td>
-                <td>
-
-                    @{ answerId = "answer" + item.Id; questionId = "question" + item.Id;}
-                    <input type="text" id="@answerId" />
-                    <input type="hidden" value="@item.Id" name="@answerId" />
-                    <p><input id="@item.Id" type="button" value="Відправити" class="sbt_btn" /></p>
-
-
-
-
-                </td>
-
-                <td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    }
-
-
-                </td>
-
-            </tr>
-            
-
-         }
-        
-        
-         
-    </tbody>
-
-</table>
-<table class="table">
-    <tbody id="w">
-       
-    </tbody>
+    <tbody id="tbody"></tbody>
 </table>
 SCORE: <span id="score"></span>
 <script type="text/javascript" src="~/jQuery/jquery.js"></script>
@@ -80,9 +26,9 @@ SCORE: <span id="score"></span>
     var score = 0;
     $(document).ready(function () {
         $(".sbt_btn").click(function () {
-
             $(this).hide();
             $("#answer" + $(this).attr("id")).attr("disabled", "");
+            alert($("#answer" + $(this).attr("id")).val());
             //alert($(this).attr("id"));
             $.ajax({
                 url: "/api/testapi/setanswer",
@@ -103,52 +49,43 @@ SCORE: <span id="score"></span>
 
 
         })
-        $(".sbt_btn").click(function () {
-
-            $(this).hide();
-            $("#answer" + $(this).attr("id")).attr("disabled", "");
-            //alert($(this).attr("id"));
-            $.ajax({
-                url: "/api/testapi/setanswer",
-                data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val() },
-
-                contentType: "json",
-
-                success: function (data) {
-                    //alert(data);
-                    score++;
-                    $("#score").empty();
-                    $("#score").text(score);
-                },
-                error: function () {
-                    alert("Incorrect");
-                }
-            })
-
-
-        })
+        
         $.ajax({
             url: "/api/testapi/GetAnswer",
             contentType: "json",
 
             success: function (data) {
-                //alert(data);
-                 //$("#qq").append(data);
-
-                //alert(data);
                 var t = JSON.parse(data);
-                var d;
                 $.each(t,function() {
-                    //alert(this.Question);
-                    $("#w").append("<tr> <td>" + this.Question + "</td><td><input id=\"answer" + this.Id + "\" ></td><td> <input value=\" Підтвердити \" type=\"button\" > </td> </tr>");
-
+                    $("#tbody").append("<tr id=\"tr"+this.Id+"\"> <td>" + this.Question + "</td><td><input type=\"text\" id=\"answer"
+                        + this.Id + "\" ></td><td><p> <input id=\"" + this.Id + "\" value=\" Підтвердити \" type=\"button\"  class=\"sbt_btnn\"/></p> </td> </tr>");
                 });
-
-                
                 
             }
+
         })
         
+        $('#tbody').on('click', 'input[type="button"]', function () {
+            if ($("#answer" + $(this).attr("id")).val() != "")
+            {
+                $(this).hide();
+                $("#answer" + $(this).attr("id")).attr("disabled", "");
+                $.ajax({
+                    url: "/api/testapi/setanswer",
+                    data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val() },
+                    contentType: "json",
+                    success: function (data) {
+                        score++;
+                        $("#score").empty();
+                        $("#score").text(score);
+                    },
+                    error: function () {
+                        alert("Incorrect");
+                    }
+                })
+            }
+           
+        });
     
     
     })

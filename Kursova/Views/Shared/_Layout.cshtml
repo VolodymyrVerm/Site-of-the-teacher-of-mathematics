@@ -26,6 +26,8 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <a class="float-right" asp-controller="Roles" asp-action="UserList">Користувачі</a>
+                        <a class="float-right" asp-controller="TaskViewModels" asp-action="ViewListQuestion">Питання</a>
+                        <a class="float-right" asp-controller="Account" asp-action="ScoresOfStudents">Бали учнів</a>
 
                     }
                     @if (User.IsInRole("Admin") || User.IsInRole("Student"))
@@ -40,12 +42,12 @@
                     <a class="float-right" asp-controller="Account" asp-action="Register">Реєстрація</a>
                 }
 
-                    <div class=" nav-pills ">
-                        <a  class="float-right " style="text-decoration-color:white" asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
-                        <a class="float-right" asp-area="" asp-controller="Home" asp-action="About">Інше</a>
-                        <a class="float-right" asp-area="" asp-controller="Home" asp-action="Index">Домашня</a>
-                    </div>
-                
+                <div class=" nav-pills ">
+                    <a class="float-right " asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
+                    <a class="float-right" asp-area="" asp-controller="Home" asp-action="About">Інше</a>
+                    <a class="float-right" asp-area="" asp-controller="Home" asp-action="Index">Домашня</a>
+                </div>
+
             </nav>
             </header>
 

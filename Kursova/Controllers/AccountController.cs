@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Kursova.ViewModels;
 using Kursova.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CustomIdentityApp.Controllers
 {
@@ -16,6 +18,7 @@ namespace CustomIdentityApp.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        public IActionResult ScoresOfStudents() => View(_userManager.Users.ToList());
         [HttpGet]
         public IActionResult Register()
         {

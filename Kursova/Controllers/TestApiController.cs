@@ -55,6 +55,36 @@ namespace Kursova.Controllers
 
         }
 
-        
+        [HttpGet]
+        [Route("ValidateAnswer")]
+        public string ValidateAnswer()
+        {
+            List<int> resultat = new List<int>();
+            int res = 0;
+            var user_list = db.Users.ToList();
+            var question_list = db.Tasks.ToList();
+            foreach (var user in user_list)
+            {
+                res = 0;
+                var ress = db.Answers.Where(i => i.UserId == user.Id).ToList();
+                foreach(var answ in ress)
+                {
+                    foreach(var quest in question_list)
+                    {
+                        if(answ.QuestionId==quest.Id.ToString() && answ.AnswerUser==quest.Answer)
+                        {
+                            res++;
+                        }
+                    }
+                    
+                }
+                db.Users.Find(user.Id).Score = res; ;
+                db.SaveChanges();
+                resultat.Add(res);
+
+            }
+            return JsonConvert.SerializeObject(db.Users);
+        }
+
     }
 }

@@ -8,6 +8,14 @@ namespace Kursova.ViewModels
 {
     public class RegisterViewModel
     {
+        
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        
+        [Display(Name = "LastName")]
+        public string LastName { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }

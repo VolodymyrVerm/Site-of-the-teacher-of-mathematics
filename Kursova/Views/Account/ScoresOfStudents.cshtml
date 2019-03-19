@@ -9,8 +9,27 @@
             <th>
                 Бали
             </th>
-           
+
         </tr>
     </thead>
     <tbody id="tbody"></tbody>
 </table>
+<script type="text/javascript" src="~/jQuery/jquery.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "/api/testapi/ValidateAnswer",
+            contentType: "json",
+            success: function (data) {
+                var t = JSON.parse(data);
+                $.each(t, function () {
+                    $("#tbody").append("<tr> <td>" + this.Email + "</td> <td>"+this.Score+"</td> </tr>")
+                });
+            }
+        })
+
+
+
+    })
+</script>

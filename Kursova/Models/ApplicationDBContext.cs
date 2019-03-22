@@ -17,6 +17,7 @@ namespace Kursova.Models
         }
       
         public DbSet<TaskViewModel> Tasks { get; set; }
+
         public DbSet<UserResponseViewModel> Answers { get; set; }
 
     }

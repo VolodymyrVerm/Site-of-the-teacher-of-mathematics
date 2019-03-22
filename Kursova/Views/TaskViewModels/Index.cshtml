@@ -10,46 +10,45 @@
     <thead>
         <tr>
             <th>
-                Question
+                Питання
             </th>
             <th>
-                Answer
+                Відповідь
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody id="tbody"></tbody>
 </table>
-SCORE: <span id="score"></span>
 <script type="text/javascript" src="~/jQuery/jquery.js"></script>
 <script type="text/javascript">
     var score = 0;
 
     $(document).ready(function () {
-        $(".sbt_btn").click(function () {
-            $(this).hide();
-            $("#answer" + $(this).attr("id")).attr("disabled", "");
-            alert($("#answer" + $(this).attr("id")).val());
-            //alert($(this).attr("id"));
-            $.ajax({
-                url: "/api/testapi/setanswer",
-                data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val() },
+        //$(".sbt_btn").click(function () {
+        //    $(this).hide();
+        //    $("#answer" + $(this).attr("id")).attr("disabled", "");
+        //    alert($("#answer" + $(this).attr("id")).val());
+        //    //alert($(this).attr("id"));
+        //    $.ajax({
+        //        url: "/api/testapi/setanswer",
+        //        data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val() },
 
-                contentType: "json",
+        //        contentType: "json",
 
-                success: function (data) {
-                    //alert(data);
-                    score++;
-                    $("#score").empty();
-                    $("#score").text(score);
-                },
-                error: function () {
-                    alert("Incorrect");
-                }
-            })
+        //        success: function (data) {
+        //            //alert(data);
+        //            score++;
+        //            $("#score").empty();
+        //            $("#score").text(score);
+        //        },
+        //        error: function () {
+        //            alert("Incorrect");
+        //        }
+        //    })
 
 
-        })
+        //})
         
         $.ajax({
             url: "/api/testapi/GetAnswer",
@@ -75,14 +74,6 @@ SCORE: <span id="score"></span>
                     url: "/api/testapi/setanswer",
                     data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val() },
                     contentType: "json",
-                    success: function (data) {
-                        score++;
-                        $("#score").empty();
-                        $("#score").text(score);
-                    },
-                    error: function () {
-                        alert("Incorrect");
-                    }
                 })
             }
            

@@ -24,7 +24,7 @@
             success: function (data) {
                 var t = JSON.parse(data);
                 $.each(t, function () {
-                    $("#tbody").append("<tr> <td>" + this.Email + "</td> <td>"+this.Score+"</td> </tr>")
+                    $("#tbody").append("<tr> <td>" + this.Name +" "+ this.LastName+"</td> <td>"+this.Score+"</td> </tr>")
                 });
             }
         })

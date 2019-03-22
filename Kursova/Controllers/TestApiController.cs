@@ -59,7 +59,7 @@ namespace Kursova.Controllers
         [Route("ValidateAnswer")]
         public string ValidateAnswer()
         {
-            List<int> resultat = new List<int>();
+            
             int res = 0;
             var user_list = db.Users.ToList();
             var question_list = db.Tasks.ToList();
@@ -80,7 +80,7 @@ namespace Kursova.Controllers
                 }
                 db.Users.Find(user.Id).Score = res; ;
                 db.SaveChanges();
-                resultat.Add(res);
+               
 
             }
             return JsonConvert.SerializeObject(db.Users);

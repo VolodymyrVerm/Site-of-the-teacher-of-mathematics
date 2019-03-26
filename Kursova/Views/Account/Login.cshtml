@@ -2,7 +2,7 @@
 
     <link rel="stylesheet" href="~/css/styles.css" />
 
-    <form class="centerLogin" method="post" asp-controller="Account" asp-action="Login"
+    <form class="text-center bg-light" method="post" asp-controller="Account" asp-action="Login"
           asp-route-returnUrl="@Model.ReturnUrl">
         <h2>Вхід</h2>
 
@@ -22,6 +22,6 @@
             <input asp-for="RememberMe" />
         </div>
         <div>
-            <input type="submit" value="Ввійти" />
+            <input class="btn btn-danger" type="submit" value="Ввійти" />
         </div>
     </form>

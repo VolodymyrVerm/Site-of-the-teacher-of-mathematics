@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel;
 using System.Security.Claims;
 
-
 namespace Kursova.Controllers
 {
     [Route("api/[controller]")]

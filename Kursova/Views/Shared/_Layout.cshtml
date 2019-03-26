@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebApp</title>
-    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/bootstrap/bootstrap.css" />
     <link rel="stylesheet" href="~/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="~/bootstrap/bootstrap-theme.css" />
@@ -12,71 +12,72 @@
 
 </head>
 <body>
-    <header class="popover-header align-self-sm-center">
-        <h1 class="">Сайт вчителя математики</h1>
-    </header>
+    
+
+
 
     <nav class="navbar navbar-dark bg-dark sticky-top">
         <div class="container">
             <div class="navbar-header">
-                <a routerLink="" class="navbar-brand">BookStore</a>
+                <a class="navbar-brand text-white">Сайт вчителя математики</a>
             </div>
             <div class="navbar">
-                <ul class="nav justify-content-end">
-                    <li class="nav-item"><a routerLink="books" class="nav-link text-light">Books</a></li>
-                    <li class="nav-item"><a routerLink="authors" class="nav-link text-light">Authors</a></li>
-                    <li class="nav-item" ><a routerLink="signin" class="nav-link text-light">Sign up/Sign in</a></li>
+                <ul class="nav justify-content-start">
+                    <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Домашня</a> </li>
+                    <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="About">Інше</a> </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Roles" asp-action="UserList">Користувачі</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="TaskViewModels" asp-action="ViewListQuestion">Питання</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Account" asp-action="ScoresOfStudents">Бали учнів</a>
+                            </li>
+
+
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Student"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="TaskViewModels" asp-action="Index">Тести</a>
+                            </li>
+
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-light">@User.Identity.Name</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <form class="mt-2 mb-2" method="post" asp-controller="Account" asp-action="LogOff">
+                                <input class="bg-dark border-0 text-white" type="submit" value="Вихід" />
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-controller="Account" asp-action="Login">Вхід</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-controller="Account" asp-action="Register">Реєстрація</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
     </nav>
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+               
+                <partial name="_CookieConsentPartial" />
 
-
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Домашня</a>
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="About">Інше</a>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-
-
-            @if (User.IsInRole("Admin"))
-            {
-                <a class="navbar-brand" asp-controller="Roles" asp-action="UserList">Користувачі</a>
-                <a class="navbar-brand" asp-controller="TaskViewModels" asp-action="ViewListQuestion">Питання</a>
-                <a class="navbar-brand" asp-controller="Account" asp-action="ScoresOfStudents">Бали учнів</a>
-
-            }
-            @if (User.IsInRole("Admin") || User.IsInRole("Student"))
-            {
-                <a class="navbar-brand" asp-area="" asp-controller="TaskViewModels" asp-action="Index">Тести</a>
-
-            }
-            <div class="nav justify-content-end">
-                <form class="" method="post" asp-controller="Account" asp-action="LogOff">
-                    <a class="text-white">@User.Identity.Name</a>
-                    <input class="bg-dark border-0 text-white" type="submit" value="Вихід" />
-                </form>
-            </div>
-        }
-        else
-        {
-            <a class="navbar-brand" asp-controller="Account" asp-action="Login">Вхід</a>
-            <a class="navbar-brand" asp-controller="Account" asp-action="Register">Реєстрація</a>
-        }
-
-
-
-
-
-    </nav>
-
-
-
-    <partial name="_CookieConsentPartial" />
-
-    @RenderBody()
+                @RenderBody()
 
 
 </body>

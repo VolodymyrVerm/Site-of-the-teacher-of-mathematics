@@ -4,14 +4,16 @@ using Kursova.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Kursova.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190410115955_Test2")]
+    partial class Test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,13 +141,15 @@ namespace Kursova.Migrations
 
                     b.Property<string>("AnswerUser");
 
-                    b.Property<int?>("TaskViewModelId");
+                    b.Property<int?>("TaskId");
+
+                    b.Property<string>("TaskViewModelId");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TaskViewModelId");
+                    b.HasIndex("TaskId");
 
                     b.ToTable("Answers");
                 });
@@ -279,7 +283,7 @@ namespace Kursova.Migrations
                 {
                     b.HasOne("Kursova.ViewModels.TaskViewModel", "Task")
                         .WithMany()
-                        .HasForeignKey("TaskViewModelId");
+                        .HasForeignKey("TaskId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

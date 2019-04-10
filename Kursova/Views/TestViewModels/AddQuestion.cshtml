@@ -1,0 +1,54 @@
+﻿@model Kursova.ViewModels.TestViewModel
+
+
+
+
+<table class="table" id="tbl">
+    <tr>
+        <td>Питання</td>
+        <td>Відповідь</td>
+    </tr>
+</table>
+<a asp-action="Index" asp-controller="TestViewModels"> Готово </a>
+<script type="text/javascript" src="~/jQuery/jquery.js"></script>
+<script type="text/javascript" src="~/jQuery/jquery.js"></script>
+<script type="text/javascript">
+    var score = 0;
+
+    $(document).ready(function () {
+       
+        $.ajax({
+
+            success: function () {
+                for (var i = 0; i < @Model.CountQuestion; i++) {
+                    $("#tbl").append("<tr><td><input type\"text\" id=\"question" + i + "\" /></td > <td><input type\"text\" id=\"answer" + i +"\" /> </td> <td><input id=\""+i+"\" type=\"button\" value=\"Create\"  /></td></tr >");
+
+                }
+                      
+                        }
+
+                    })
+
+        $('#tbl').on('click', 'input[type="button"]', function () {
+           
+            $(this).hide();
+            $("#question").attr("disabled", "");
+            $.ajax({
+
+                type: "POST",
+                url: "/TestViewModels/AddQuestion",
+                data: { question: $("#question" + $(this).attr("id")).val(), answer: $("#answer" + $(this).attr("id")).val(), id:@Model.Id },
+                success: function () {
+                               // window.location = '@Url.Action("Index","TestViewModels")';
+                            },
+                error: function () {
+                               //alert("Error");
+                            }
+                        });
+
+
+                    });
+
+
+    })
+</script>

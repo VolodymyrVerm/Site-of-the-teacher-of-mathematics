@@ -4,14 +4,16 @@ using Kursova.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Kursova.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190401130503_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,25 +99,6 @@ namespace Kursova.Migrations
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("Kursova.ViewModels.TestProgress", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Completed");
-
-                    b.Property<string>("IdentityUserId");
-
-                    b.Property<int>("TestId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("TestsProgress");
-                });
-
             modelBuilder.Entity("Kursova.ViewModels.TestViewModel", b =>
                 {
                     b.Property<int>("Id")
@@ -139,13 +122,13 @@ namespace Kursova.Migrations
 
                     b.Property<string>("AnswerUser");
 
-                    b.Property<int?>("TaskViewModelId");
+                    b.Property<string>("QuestionId");
+
+                    b.Property<int>("TestId");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TaskViewModelId");
 
                     b.ToTable("Answers");
                 });
@@ -265,21 +248,6 @@ namespace Kursova.Migrations
                     b.HasOne("Kursova.ViewModels.TestViewModel", "Test")
                         .WithMany("ListOfQuestion")
                         .HasForeignKey("TestViewModelId");
-                });
-
-            modelBuilder.Entity("Kursova.ViewModels.TestProgress", b =>
-                {
-                    b.HasOne("Kursova.ViewModels.TestViewModel", "Test")
-                        .WithMany()
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Kursova.ViewModels.UserResponseViewModel", b =>
-                {
-                    b.HasOne("Kursova.ViewModels.TaskViewModel", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskViewModelId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

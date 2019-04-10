@@ -15,10 +15,15 @@ namespace Kursova.Models
         {
            // Database.EnsureCreated();
         }
-      
+     
+        
+
         public DbSet<TaskViewModel> Tasks { get; set; }
 
         public DbSet<UserResponseViewModel> Answers { get; set; }
 
+        public DbSet<TestViewModel> Tests { get; set; }
+
+        public DbSet<TestProgress> TestsProgress { get; set; }
     }
 }

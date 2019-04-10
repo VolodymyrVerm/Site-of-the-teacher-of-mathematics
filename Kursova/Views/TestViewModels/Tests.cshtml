@@ -1,0 +1,35 @@
+﻿@using Kursova.ViewModels
+@using Kursova.Models
+@model IEnumerable<Kursova.ViewModels.TestViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="ShowQuestion" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                    
+                </td>
+                <td>
+                </td>
+
+                
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace Kursova.Controllers
 {
@@ -29,12 +32,12 @@ namespace Kursova.Controllers
 
         [HttpGet]
         [Route("SetAnswer")]
-        public void SetAnswer(string answer,string id)
+        public void SetAnswer(string answer,int id)
         {
-
+            
 
             var t=us.GetUserId(User);
-            UserResponseViewModel res = new UserResponseViewModel { UserId = t, QuestionId = id, AnswerUser = answer };
+            UserResponseViewModel res = new UserResponseViewModel { UserId = t, TaskViewModelId = id, AnswerUser = answer };
             db.Answers.Add(res);
             db.SaveChanges();
 
@@ -48,11 +51,28 @@ namespace Kursova.Controllers
             var t = us.GetUserId(User);
             
             var ress=db.Answers.Where(i => i.UserId == t);
-            var res = db.Tasks.Where(i => !ress.Any(k => k.QuestionId == i.Id.ToString()));
+            var res = db.Tasks.Where(i => !ress.Any(k => k.TaskViewModelId == i.Id));
             return JsonConvert.SerializeObject(res);
 
 
         }
+
+        [HttpGet]
+        [Route("GetAnswerr")]
+        public string GetAnswerr(int id)
+        {
+            
+            //var list_of_test2=db.Tests.Find(id).ListOfQuestion;
+            var list_of_test = db.Tests.Include(i => i.ListOfQuestion).Where(item => item.Id == id).First().ListOfQuestion;
+            //var list_of_test2 = db.Tests.Find(id).ListOfQuestion;
+            //var t = us.GetUserId(User);
+            //var ress = db.Answers.Where(i => i.UserId == t);
+            //var res = db.Tasks.Where(i => !ress.Any(k => k.QuestionId == i.Id.ToString()));
+            
+            return JsonConvert.SerializeObject(list_of_test);
+        }
+
+        
 
         [HttpGet]
         [Route("ValidateAnswer")]
@@ -70,7 +90,7 @@ namespace Kursova.Controllers
                 {
                     foreach(var quest in question_list)
                     {
-                        if(answ.QuestionId==quest.Id.ToString() && answ.AnswerUser==quest.Answer)
+                        if(answ.TaskViewModelId == quest.Id && answ.AnswerUser==quest.Answer)
                         {
                             res++;
                         }

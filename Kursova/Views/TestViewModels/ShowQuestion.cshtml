@@ -1,0 +1,63 @@
+﻿@model Kursova.ViewModels.TestViewModel
+
+
+<h2>Тестування</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Питання
+            </th>
+            <th>
+                Відповідь
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+</table>
+<a asp-action="SetProgressTest" asp-controller="TestViewModels" asp-route-id="@Model.Id">Готово</a>
+<script type="text/javascript" src="~/jQuery/jquery.js"></script>
+<script type="text/javascript">
+    var score = 0;
+
+    $(document).ready(function () {
+        $.ajax({
+
+            url: "/api/testapi/GetAnswerr",
+            data: { "id": "@Model.Id" },
+            success: function (data) {
+                
+                var t = JSON.parse(data);
+                $.each(t, function () {
+                    
+                    $("#tbody").append("<tr id=\"tr"+this.Id+"\"> <td>" + this.Question + "</td><td><input type=\"text\" id=\"answer"
+                        + this.Id + "\" ></td><td><p> <input id=\"" + this.Id + "\" value=\" Підтвердити \" type=\"button\"  class=\"sbt_btnn\"/></p> </td> </tr>");
+                });
+
+            },
+            error: function () {
+                alert(404);
+            }
+            
+
+        })
+
+        $('#tbody').on('click', 'input[type="button"]', function () {
+            if ($("#answer" + $(this).attr("id")).val() != "")
+            {
+                $(this).hide();
+                $("#answer" + $(this).attr("id")).attr("disabled", "");
+                $.ajax({
+                    url: "/api/testapi/setanswer",
+                    data: { "id": $(this).attr("id"), "answer": $("#answer" + $(this).attr("id")).val() },
+                    contentType: "json",
+                })
+            }
+
+        });
+
+
+    })
+</script>

@@ -19,7 +19,7 @@
     <nav class="navbar navbar-dark bg-dark sticky-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand text-white">Сайт вчителя математики</a>
+                <a class="navbar-brand text-white">Онлайн-Тестування</a>
             </div>
             <div class="navbar">
                 <ul class="nav justify-content-start">
@@ -40,13 +40,19 @@
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="Account" asp-action="ScoresOfStudents">Бали учнів</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="TestViewModels" asp-action="Index">Створення тесту</a>
+                            </li>
 
 
                         }
                         @if (User.IsInRole("Admin") || User.IsInRole("Student"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="TaskViewModels" asp-action="Index">Тести</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="TaskViewModels" asp-action="Index">Тести1</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="TestViewModels" asp-action="Tests">Тести2</a>
                             </li>
 
                         }

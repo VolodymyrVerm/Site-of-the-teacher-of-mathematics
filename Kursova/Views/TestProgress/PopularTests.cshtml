@@ -1,0 +1,74 @@
+﻿@model IEnumerable<KeyValuePair<string, int>>
+@using Kursova.ViewModels
+@using Kursova.Models
+
+<h2>Топ найпопулярніших тестів</h2>
+
+<div id="top">
+    <p>
+        <b>Кількість:</b>
+        <input type="text" id="top_name" />
+    </p>
+    <input type="button" id="top-button" value="Підтвердити і вивести"/>
+</div>
+<table class="table">
+    <thead id="thead">
+        <tr>
+            <th>
+                Назва тесту
+            </th>
+            <th>
+                Кількість відвідувань
+            </th>
+        </tr>
+        @*@foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    @item.Key
+                </th>
+                <th>
+                    @item.Value
+                </th>
+            </tr>
+        }*@
+
+    </thead>
+    <tbody id="tbody"></tbody>
+</table>
+
+
+<script type="text/javascript" src="~/jQuery/jquery.js"></script>
+<script type="text/javascript">
+        var score = 0;
+
+    $(document).ready(function () {
+
+        $('#top').on('click', 'input[type="button"]', function () {
+
+            $.ajax({
+
+                url: "/Api/ProgressApi/PopularTests",
+                data: { "number": $('#top_name').val()},
+                success: function (data) {
+                    $("#tbody").empty();
+                    var t = JSON.parse(data);
+                    $.each(t, function () {
+                        
+                         $("#tbody").append("<tr> <td>" + this.Key + "</td><td>" + this.Value + "</td></tr>");
+                        
+                    });
+
+
+                },
+                error: function () {
+                    alert(404);
+                }
+
+
+            })
+        });
+
+
+        })
+</script>

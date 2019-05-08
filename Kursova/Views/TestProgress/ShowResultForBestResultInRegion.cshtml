@@ -1,0 +1,64 @@
+﻿@model Kursova.ViewModels.TestViewModel
+<h2>Найкращі результати тесту "@Model.Name" за певний проміжок часу та у відповідній області</h2>
+
+<table class="table">
+    <thead id="thead">
+        <tr>
+            <th>
+                <input type="date" id="for">
+                <input type="date" id="to">
+                <p>Область:</p>
+                <input type="text" id="region" />
+                <input type="button" value="Підтвердити і вивести результати">
+            </th>
+        </tr>
+        <tr>
+            <th>
+               Користувач
+            </th>
+            <th>
+                Область
+            </th>
+            <th>
+                Оцінка
+            </th>
+        </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+</table>
+
+<script type="text/javascript" src="~/jQuery/jquery.js"></script>
+<script type="text/javascript">
+        var score = 0;
+
+    $(document).ready(function () {
+
+        $('#thead').on('click', 'input[type="button"]', function () {
+            
+            $.ajax({
+
+                url: "/api/ProgressApi/BestResultsInRegion",
+                data: { "testId": "@Model.Id", "region": $('#region').val() },
+                success: function (data) {
+                    $("#tbody").empty();
+
+                    var t = JSON.parse(data);
+                    $.each(t, function () {
+                        if (this.DateTime > $('#for').val() && this.DateTime <= $('#to').val()) {
+
+                            $("#tbody").append("<tr> <td>" + this.User.Name + " " + this.User.LastName + "</td><td>" + this.User.Region + "</td><td>" + this.Score + "</td><td>" + this.DateTime + "</td></tr>");
+                        }
+                    });
+
+                },
+                error: function () {
+                    alert(404);
+                }
+
+
+            })
+        });
+
+
+        })
+</script>

@@ -14,7 +14,7 @@ namespace Kursova.ViewModels
         //[ForeignKey("User")]
         public string UserId { get; set; }
 
-        [ForeignKey("TaskViewModel")]
+      //  [ForeignKey("TaskViewModel")]
         public int? TaskViewModelId { get; set; }
         
         public TaskViewModel Task { get; set; }

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Kursova.ViewModels.TestViewModel>
+@using Kursova.ViewModels
+@using Kursova.Models
+
+<h2>Найкращі результати тесту за певний проміжок часу по областях</h2>
+
+
+<h2>Список усіх тестів</h2>
+
+
+<table class="table">
+    <thead>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <th>
+                    <a asp-controller="TestProgress" asp-action="ShowResultForBestResultOnRegion" asp-route-id="@i.Id">@i.Name</a>
+                </th>
+            </tr>
+        }
+    </thead>
+</table>
+

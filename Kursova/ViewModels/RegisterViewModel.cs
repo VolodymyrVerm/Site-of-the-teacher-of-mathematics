@@ -16,6 +16,9 @@ namespace Kursova.ViewModels
         [Display(Name = "LastName")]
         public string LastName { get; set; }
 
+        [Display(Name = "Region")]
+        public string Region { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }

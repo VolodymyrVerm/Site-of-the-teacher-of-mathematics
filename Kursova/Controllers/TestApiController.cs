@@ -37,7 +37,9 @@ namespace Kursova.Controllers
             
 
             var t=us.GetUserId(User);
-            UserResponseViewModel res = new UserResponseViewModel { UserId = t, TaskViewModelId = id, AnswerUser = answer };
+            TaskViewModel tsk = db.Tasks.First(i => i.Id == id);
+           
+            UserResponseViewModel res = new UserResponseViewModel { UserId = t,Task=tsk, AnswerUser = answer };
             db.Answers.Add(res);
             db.SaveChanges();
 
@@ -92,11 +94,12 @@ namespace Kursova.Controllers
                     {
                         if(answ.TaskViewModelId == quest.Id && answ.AnswerUser==quest.Answer)
                         {
-                            res++;
+                            res += quest.Score;
                         }
                     }
                     
                 }
+               // db.TestsProgress.Where(i => i.UserId == user.Id).First().Score = res;
                 db.Users.Find(user.Id).Score = res; ;
                 db.SaveChanges();
                

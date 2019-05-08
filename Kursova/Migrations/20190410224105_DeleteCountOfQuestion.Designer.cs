@@ -4,14 +4,16 @@ using Kursova.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Kursova.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190410224105_DeleteCountOfQuestion")]
+    partial class DeleteCountOfQuestion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,8 +55,6 @@ namespace Kursova.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("Region");
 
                     b.Property<int>("Score");
 
@@ -107,8 +107,6 @@ namespace Kursova.Migrations
 
                     b.Property<DateTime>("DateTime");
 
-                    b.Property<int>("Score");
-
                     b.Property<int?>("TestId");
 
                     b.Property<string>("UserId");
@@ -116,8 +114,6 @@ namespace Kursova.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("TestId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("TestsProgress");
                 });
@@ -276,10 +272,6 @@ namespace Kursova.Migrations
                     b.HasOne("Kursova.ViewModels.TestViewModel", "Test")
                         .WithMany()
                         .HasForeignKey("TestId");
-
-                    b.HasOne("Kursova.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Kursova.ViewModels.UserResponseViewModel", b =>

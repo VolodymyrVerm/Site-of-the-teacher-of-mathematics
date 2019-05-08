@@ -36,20 +36,26 @@ namespace Kursova.Controllers
         }
 
         public ActionResult ShowQuestion(int id)
-
         {
-            //if(_context.TestsProgress.Where(i=>i.TestId==id).Where(y=>y.UserId==_us.GetUserId(User)).First==true)
-            //{
-
-            //}
+            var b = _context.TestsProgress.Any(i => i.TestId == id && i.UserId == _us.GetUserId(User));
+            if (b)
+            {
+                string g = "Test Passed";
+                return RedirectToAction("TestPassed","TestViewModels",new { g});
+            }
             return View(_context.Tests.Include(i => i.ListOfQuestion).Where(item => item.Id == id).First());
         }
 
-        
+        public ActionResult TestPassed(string msg)
+        {
+            ViewBag.Message = msg;
+            return View(msg);
+        }
+
         public ActionResult SetProgressTest(int id)
         {
             var a = _context.Tests.Find(id);
-            TestProgress tp = new TestProgress { Completed = true, Test = _context.Tests.Find(id), IdentityUserId = _us.GetUserId(User) };
+            TestProgress tp = new TestProgress {  Test = _context.Tests.Find(id), UserId = _us.GetUserId(User),DateTime=DateTime.Now };
             _context.TestsProgress.Add(tp);
             _context.SaveChanges();
             return RedirectToAction(nameof(Tests));
@@ -76,16 +82,6 @@ namespace Kursova.Controllers
         [HttpGet]
         public ActionResult ViewList(int id)
         {
-            //var y = _context.Tests.Find(135).Name;
-           // var t = _context.Tasks.Find(130).Test;
-            var r =  _context.Tests.Include(i=>i.ListOfQuestion);
-            //_context.Update(r);
-            //var y=_context.Tasks.Find()
-
-            //foreach (var item in r)
-            //{
-            //    var t = item;
-            //}
             return View(_context.Tests.Include(i => i.ListOfQuestion).Where(item=>item.Id==id).First().ListOfQuestion);
         }
 
@@ -99,39 +95,14 @@ namespace Kursova.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public  void AddQuestion(string question,string answer,int id)
+        public  void AddQuestion(string question,string answer,int id,string score)
         {
-            TaskViewModel t = new TaskViewModel { Question = question, Answer = answer, TestViewModelId=id,Test=_context.Tests.Find(id)};
-           // _context.Entry(t).State = EntityState.Modified;
-
+            int sc = Int32.Parse(score);
+            TaskViewModel t = new TaskViewModel { Question = question, Answer = answer, TestViewModelId=id,Test=_context.Tests.Find(id),Score=sc};
             _context.Tasks.Add(t);
             var r = _context.Tests.Find(id);
-           // _context.Tests.Find(id).ListOfQuestion.Add(t);
              _context.SaveChanges();
-            // var r = _context.Tasks.Last();
-            //_context.Tests.Find(id).ListOfQuestion.Add(r);
-            //_context.SaveChanges();
-            //if (ModelState.IsValid)
-            //{
-            //   // _context.Tests.Find(id).ListOfQuestion=new List<TaskViewModel>();
-                
-            //    //_context.Tests.Find(id).ListOfQuestion.Add(t);
-                
-            //    //_context.Tasks.Last().Test = _context.Tests.Find(id);
-            //    //var r = _context.Tasks.Last();
-
-            //    //List<TaskViewModel> l = new List<TaskViewModel>();
-            //    // l.Add(t);
-            //    //_context.Tests.Find(id).ListOfQuestion.Add(r);
-            //   // _context.Tests.Find(id).ListOfQuestion.Add(t);
-            //    //_context.Add(taskViewModel);
-            //    // await _context.SaveChangesAsync();
-            //    // _context.Tests.Find(id).ListOfQuestion.Add(t);
-            //    //x.ListOfQuestion.Add(t);
-            //     //_context.SaveChanges();
-            //   // return RedirectToAction(nameof(Index));
-            //}
-           // return RedirectToAction(nameof(Index));
+           
         }
 
         // GET: TestViewModels/Create
@@ -145,7 +116,7 @@ namespace Kursova.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CountQuestion")] TestViewModel testViewModel)
+        public async Task<IActionResult> Create([Bind("Id,Name")] TestViewModel testViewModel)
         {
             
             if (ModelState.IsValid)

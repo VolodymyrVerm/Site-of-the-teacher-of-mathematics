@@ -20,7 +20,7 @@ namespace Kursova.ViewModels
         public int Score { get; set; }
 
        // [ForeignKey("TestViewModel")]
-        public int ?TestViewModelId { get; set; }
+        public int? TestViewModelId { get; set; }
 
         [JsonIgnore]
         public virtual TestViewModel Test { get; set; }

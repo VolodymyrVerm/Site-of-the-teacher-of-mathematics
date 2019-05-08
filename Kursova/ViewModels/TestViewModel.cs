@@ -13,8 +13,6 @@ namespace Kursova.ViewModels
 
         public virtual ICollection<TaskViewModel> ListOfQuestion { get; set; }
 
-        public  int CountQuestion { get; set; }
-
         public TestViewModel()
         {
             ListOfQuestion = new List<TaskViewModel>();

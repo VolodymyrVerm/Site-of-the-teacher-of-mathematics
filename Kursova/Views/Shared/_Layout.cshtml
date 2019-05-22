@@ -24,7 +24,6 @@
             <div class="navbar">
                 <ul class="nav justify-content-start">
                     <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Домашня</a> </li>
-                    <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="About">Інше</a> </li>
                     @if (User.Identity.IsAuthenticated)
                     {
 
@@ -32,29 +31,22 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Home" asp-action="Main">Статистика</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="Roles" asp-action="UserList">Користувачі</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="TaskViewModels" asp-action="ViewListQuestion">Список усіх питань</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="Account" asp-action="ScoresOfStudents">Бали учнів</a>
-                            </li>
+                            @*<li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="TaskViewModels" asp-action="ViewListQuestion">Список усіх питань</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="Account" asp-action="ScoresOfStudents">Бали учнів</a>
+                </li>*@
+
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="TestViewModels" asp-action="Index">Створення тесту</a>
                             </li>
-
-
-                        }
-                        @if (User.IsInRole("Admin") || User.IsInRole("Student"))
-                        {
                             @*<li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="TaskViewModels" asp-action="Index">Тести1</a>
-                </li>*@
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="TestViewModels" asp-action="Tests">Тести</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="TestProgress" asp-action="ShowTestForResult">Results</a>
                             </li>
                             <li class="nav-item">
@@ -69,7 +61,21 @@
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="TestProgress" asp-action="AveregeScore">Results5</a>
                             </li>
-                            
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="TestProgress" asp-action="RatingOfUsers">Results6</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="TestProgress" asp-action="AboutUsers">Results7</a>
+                            </li>*@
+
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Student"))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="TestViewModels" asp-action="Tests">Тести</a>
+                            </li>
+
 
                         }
                         <li class="nav-item">

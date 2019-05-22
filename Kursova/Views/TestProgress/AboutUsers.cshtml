@@ -1,0 +1,61 @@
+﻿
+<h2>Усі користувачі в певній області</h2>
+
+<table class="table">
+    <thead id="thead">
+        <tr>
+            <th>
+                <input type="date" id="for">
+                <input type="date" id="to">
+                <p>
+                    <b>Область:</b>
+                    <input type="text" id="region">
+                </p>
+                <input type="button" value="Підтвердити і вивести результати">
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Користувачі:
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+</table>
+
+<script type="text/javascript" src="~/jQuery/jquery.js"></script>
+<script type="text/javascript">
+    var score = 0;
+
+    $(document).ready(function () {
+
+        $('#thead').on('click', 'input[type="button"]', function () {
+
+            $.ajax({
+
+                url: "/api/ProgressApi/AboutUsers",
+                data: { "_for": $('#for').val(), "_to": $('#to').val(), "region": $('#region').val() },
+                success: function (data) {
+                    $("#tbody").empty();
+
+                    var t = JSON.parse(data);
+                    $.each(t, function () {
+
+                        $("#tbody").append("<tr> <td>" + this.Name  +" "+ this.LastName + "</td></tr>");
+
+                    });
+
+
+                },
+                error: function () {
+                    alert(404);
+                }
+
+
+            })
+        });
+
+
+    })
+</script>

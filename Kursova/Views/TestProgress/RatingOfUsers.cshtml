@@ -1,0 +1,64 @@
+﻿@model IEnumerable<KeyValuePair<string, int>>
+
+<h2>Рейтинг активності користувачів</h2>
+
+<table class="table">
+    <thead id="thead">
+        <tr>
+            <th>
+                <input type="date" id="for">
+                <input type="date" id="to">
+                <p>
+                    <b>Кількість:</b>
+                    <input type="text" id="top">
+                </p>
+                <input type="button" value="Підтвердити і вивести результати">
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Користувачі:
+            </th>
+            <th>
+                Кількість відвідувань тестів:
+            </th>
+        </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+</table>
+
+<script type="text/javascript" src="~/jQuery/jquery.js"></script>
+<script type="text/javascript">
+    var score = 0;
+
+    $(document).ready(function () {
+
+        $('#thead').on('click', 'input[type="button"]', function () {
+
+            $.ajax({
+
+                url: "/api/ProgressApi/RatingOfUsers",
+                data: { "_for": $('#for').val(), "_to": $('#to').val(), "number": $('#top').val() },
+                success: function (data) {
+                    $("#tbody").empty();
+
+                    var t = JSON.parse(data);
+                    $.each(t, function () {
+
+                        $("#tbody").append("<tr> <td>" + this.Key + "</td><td>" + this.Value + "</td></tr>");
+
+                    });
+
+
+                },
+                error: function () {
+                    alert(404);
+                }
+
+
+            })
+        });
+
+
+    })
+</script>

@@ -15,5 +15,7 @@ namespace Kursova.Models
         public string LastName { get; set; }
 
         public string Region { get; set; }
+
+        public DateTime TimeRegistration { get; set; }
     }
 }

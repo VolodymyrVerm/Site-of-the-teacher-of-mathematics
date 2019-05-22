@@ -5,6 +5,7 @@ using Kursova.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace CustomIdentityApp.Controllers
 {
@@ -29,7 +30,7 @@ namespace CustomIdentityApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Name = model.Name, LastName = model.LastName, Region=model.Region, Email = model.Email, UserName = model.Email };
+                User user = new User { TimeRegistration =DateTime.Now,Name = model.Name, LastName = model.LastName, Region=model.Region, Email = model.Email, UserName = model.Email };
                 
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);

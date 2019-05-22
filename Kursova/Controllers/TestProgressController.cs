@@ -73,7 +73,7 @@ namespace Kursova.Controllers
         //    }
         //    var sort_dic=dic.OrderByDescending(i => i.Value);
 
-
+        //
 
         //    //return View(sort_dic.Take(num));
         //    return PartialView(sort_dic.Take(num));
@@ -93,6 +93,16 @@ namespace Kursova.Controllers
         public ActionResult ShowAveregeScore(int id)
         {
             return View(_context.Tests.Find(id));
+        }
+
+        public ActionResult RatingOfUsers()
+        {
+            return View();
+        }
+
+        public ActionResult AboutUsers()
+        {
+            return View();
         }
     }
 }

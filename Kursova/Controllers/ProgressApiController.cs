@@ -228,6 +228,52 @@ namespace Kursova.Controllers
 
             return JsonConvert.SerializeObject(averegeSum);
         }
+        //RatingOfUsers
+
+        [HttpGet]
+        [Route("RatingOfUsers")]
+        public string RatingOfUsers(string _for,string _to, string number)
+        {
+            DateTime t1 = DateTime.Parse(_for);
+            DateTime t2 = DateTime.Parse(_to);
+
+            int num = 1;
+            if (number != null)
+            {
+                num = Int32.Parse(number);
+
+            }
+            db.TestsProgress.Include(u => u.User).Include(i => i.Test);
+            var q = db.TestsProgress.Include(p => p.User).OrderBy(i => i.User.LastName).Where(e=>e.DateTime>t1 && e.DateTime<=t2);
+            int count = 0;
+            var r = q.GroupBy(x => x.User.LastName);
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+
+            foreach (var i in r)
+            {
+                count = i.Count();
+                dic.Add( i.First().User.Name+" "+i.First().User.LastName, i.Count());
+            }
+            var sort_dic = dic.OrderByDescending(i => i.Value);
+
+
+
+            //return View(sort_dic.Take(num));
+            return JsonConvert.SerializeObject(sort_dic.Take(num));
+        }
+
+        [HttpGet]
+        [Route("AboutUsers")]
+        public string AboutUsers(string _for, string _to, string region)
+        {
+            DateTime t1 = DateTime.Parse(_for);
+            DateTime t2 = DateTime.Parse(_to);
+
+
+            var res = db.Users.Where(u => u.Region == region && u.TimeRegistration>t1 && u.TimeRegistration<=t2);
+            res.OrderByDescending(u => u.LastName);
+            return JsonConvert.SerializeObject(res);
+        }
     }
-    }
+}
 

@@ -13,11 +13,12 @@ namespace CustomIdentityApp.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        RoleManager<IdentityRole> _roleManager;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
         public IActionResult ScoresOfStudents() => View(_userManager.Users.ToList());
         [HttpGet]
@@ -31,13 +32,22 @@ namespace CustomIdentityApp.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { TimeRegistration =DateTime.Now,Name = model.Name, LastName = model.LastName, Region=model.Region, Email = model.Email, UserName = model.Email };
-                
+                await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                await _roleManager.CreateAsync(new IdentityRole("Student"));
+
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (_userManager.Users.Count() == 1)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "Student");
+                    }
                     // установка куки
-                    await _userManager.AddToRoleAsync(user, "Student");
                     await _signInManager.SignInAsync(user, false);
                    
                     return RedirectToAction("Index", "Home");

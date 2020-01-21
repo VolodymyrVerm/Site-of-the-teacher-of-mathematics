@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kursova.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20190506230956_AddRegion")]
-    partial class AddRegion
+    [Migration("20200119133851_FIRST")]
+    partial class FIRST
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -61,6 +61,8 @@ namespace Kursova.Migrations
                     b.Property<int>("Score");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<DateTime>("TimeRegistration");
 
                     b.Property<bool>("TwoFactorEnabled");
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Kursova.Migrations
 {
-    public partial class First : Migration
+    public partial class FIRST : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,7 +43,9 @@ namespace Kursova.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Score = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    LastName = table.Column<string>(nullable: true),
+                    Region = table.Column<string>(nullable: true),
+                    TimeRegistration = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,8 +58,7 @@ namespace Kursova.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    CountQuestion = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -198,9 +199,10 @@ namespace Kursova.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TestId = table.Column<int>(nullable: false),
-                    Completed = table.Column<bool>(nullable: false),
-                    IdentityUserId = table.Column<string>(nullable: true)
+                    TestId = table.Column<int>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    Score = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -210,7 +212,13 @@ namespace Kursova.Migrations
                         column: x => x.TestId,
                         principalTable: "Tests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TestsProgress_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -287,6 +295,11 @@ namespace Kursova.Migrations
                 name: "IX_TestsProgress_TestId",
                 table: "TestsProgress",
                 column: "TestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestsProgress_UserId",
+                table: "TestsProgress",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

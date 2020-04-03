@@ -25,18 +25,6 @@
             $("#tbl").append("<tr><td><input type\"text\" id=\"score" + i + "\" /></td><td><input type\"text\" id=\"question" + i + "\" /></td > <td><input type\"text\" id=\"answer" + i + "\" /> </td> <td><input id=\"" + i + "\" type=\"button\" value=\"Create\"  /></td></tr >");
         }
 
-        @*$.ajax({
-
-            success: function () {
-                for (var i = 0; i < @Model.CountQuestion; i++) {
-                    $("#tbl").append("<tr><td><input type\"text\" id=\"score" + i + "\" /></td><td><input type\"text\" id=\"question" + i + "\" /></td > <td><input type\"text\" id=\"answer" + i +"\" /> </td> <td><input id=\""+i+"\" type=\"button\" value=\"Create\"  /></td></tr >");
-
-                }
-                      
-             }
-
-        })*@
-
         $('#tbl').on('click', 'input[type="button"]', function () {
            
             $(this).hide();

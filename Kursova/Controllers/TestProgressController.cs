@@ -51,34 +51,6 @@ namespace Kursova.Controllers
             return View(_context.Tests.Find(id));
         }
 
-
-        //public ActionResult PopularTests(string number)
-        //{
-        //    int num = 1;
-        //    if (number != null)
-        //    {
-        //        num = Int32.Parse(number);
-
-        //    }
-        //    _context.TestsProgress.Include(u => u.User).Include(i => i.Test);
-        //    var q = _context.TestsProgress.Include(p=>p.Test).OrderBy(i => i.Test.Name);
-        //    int count = 0;
-        //    var r = q.GroupBy(x => x.Test.Name);
-        //    Dictionary<string, int> dic = new Dictionary<string, int>();
-
-        //    foreach (var i in r)
-        //    {
-        //        count = i.Count();
-        //        dic.Add(i.First().Test.Name, i.Count());
-        //    }
-        //    var sort_dic=dic.OrderByDescending(i => i.Value);
-
-        //
-
-        //    //return View(sort_dic.Take(num));
-        //    return PartialView(sort_dic.Take(num));
-        //}
-
         public ActionResult PopularTests()
         {
            

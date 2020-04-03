@@ -125,7 +125,6 @@ namespace Kursova.Controllers
                 await _context.SaveChangesAsync();
                 var a = testViewModel;
                 return RedirectToAction("AddQuestion", "TestViewModels",new { a.Id } );
-                //return RedirectToAction(nameof(AddQuestion(testViewModel)));
             }
             return RedirectToAction(nameof(Index));
         }

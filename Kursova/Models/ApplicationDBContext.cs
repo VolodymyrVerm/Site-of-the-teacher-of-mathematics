@@ -13,7 +13,6 @@ namespace Kursova.Models
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
             : base(options)
         {
-           // Database.EnsureCreated();
         }
      
         

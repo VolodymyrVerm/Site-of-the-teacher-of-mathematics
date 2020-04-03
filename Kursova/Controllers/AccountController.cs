@@ -35,7 +35,6 @@ namespace CustomIdentityApp.Controllers
                 await _roleManager.CreateAsync(new IdentityRole("Admin"));
                 await _roleManager.CreateAsync(new IdentityRole("Student"));
 
-                // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -47,7 +46,6 @@ namespace CustomIdentityApp.Controllers
                     {
                         await _userManager.AddToRoleAsync(user, "Student");
                     }
-                    // установка куки
                     await _signInManager.SignInAsync(user, false);
                    
                     return RedirectToAction("Index", "Home");
@@ -80,7 +78,6 @@ namespace CustomIdentityApp.Controllers
                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    // проверяем, принадлежит ли URL приложению
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -102,7 +99,6 @@ namespace CustomIdentityApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }

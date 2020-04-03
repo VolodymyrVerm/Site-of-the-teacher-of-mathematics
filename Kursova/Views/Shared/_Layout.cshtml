@@ -36,37 +36,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="Roles" asp-action="UserList">Користувачі</a>
                             </li>
-                            @*<li class="nav-item">
-                    <a class="nav-link text-light" asp-controller="TaskViewModels" asp-action="ViewListQuestion">Список усіх питань</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" asp-controller="Account" asp-action="ScoresOfStudents">Бали учнів</a>
-                </li>*@
 
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="TestViewModels" asp-action="Index">Створення тесту</a>
                             </li>
-                            @*<li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="TestProgress" asp-action="ShowTestForResult">Results</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="TestProgress" asp-action="ShowTestForBestResultInRegion">Results2</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="TestProgress" asp-action="ShowTestForBestResultOnRegion">Results3</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="TestProgress" asp-action="PopularTests">Results4</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="TestProgress" asp-action="AveregeScore">Results5</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="TestProgress" asp-action="RatingOfUsers">Results6</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="TestProgress" asp-action="AboutUsers">Results7</a>
-                            </li>*@
 
                         }
                         @if (User.IsInRole("Admin") || User.IsInRole("Student"))

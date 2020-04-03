@@ -64,13 +64,7 @@ namespace Kursova.Controllers
         public string GetAnswerr(int id)
         {
             
-            //var list_of_test2=db.Tests.Find(id).ListOfQuestion;
             var list_of_test = db.Tests.Include(i => i.ListOfQuestion).Where(item => item.Id == id).First().ListOfQuestion;
-            //var list_of_test2 = db.Tests.Find(id).ListOfQuestion;
-            //var t = us.GetUserId(User);
-            //var ress = db.Answers.Where(i => i.UserId == t);
-            //var res = db.Tasks.Where(i => !ress.Any(k => k.QuestionId == i.Id.ToString()));
-            
             return JsonConvert.SerializeObject(list_of_test);
         }
 
